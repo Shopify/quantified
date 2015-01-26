@@ -1,5 +1,3 @@
-require 'active_support/inflector'
-
 module Quantified
   class Attribute
     include Comparable
@@ -125,7 +123,7 @@ module Quantified
     end
 
     def self.primitive(sym, options = {})
-      unit_sym = (options[:plural] || sym.to_s.pluralize).to_sym
+      unit_sym = pluralize_unit(sym, options[:plural]).to_sym
       primitives << unit_sym
       add_to_system(unit_sym)
       add_methods_for(unit_sym, options)
@@ -142,7 +140,7 @@ module Quantified
     end
 
     def self.one(sym, options = {})
-      unit_sym = (options[:plural] || sym.to_s.pluralize).to_sym
+      unit_sym = pluralize_unit(sym, options[:plural]).to_sym
       add_to_system(unit_sym)
       register_unit(unit_sym, options[:is].unit, options[:is].amount)
       add_methods_for(unit_sym, options)
@@ -208,6 +206,17 @@ module Quantified
           klass.new(self, unit_name.to_sym)
         end
       end
+    end
+
+    PLURAL_EXCEPTIONS = {
+      'inch' => 'inches',
+      'foot' => 'feet',
+    }
+    private_constant :PLURAL_EXCEPTIONS
+
+    def self.pluralize_unit(word, provided_plural = nil)
+      return provided_plural unless provided_plural.nil?
+      PLURAL_EXCEPTIONS[word.to_s] || "#{word}s"
     end
   end
 end
