@@ -1,9 +1,11 @@
-require 'test/unit'
-# require 'active_support/inflector'
+require "minitest/autorun"
+require "active_support"
+
+ActiveSupport.test_order = :random
 
 require 'quantified'
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   EPSILON = 0.00001
 
   def assert_in_epsilon(expected, actual, msg = nil)

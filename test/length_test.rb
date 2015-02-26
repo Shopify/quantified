@@ -1,27 +1,26 @@
 require 'test_helper'
-require 'quantified/length'
 
-class LengthTest < Test::Unit::TestCase
+class LengthTest < ActiveSupport::TestCase
   include Quantified
   Length.numeric_methods :metres, :centimetres, :inches, :feet
 
-  def setup
+  setup do
     @length = Length.new(5, :feet)
   end
 
-  def test_inspect
+  test "#inspect" do
     assert_equal "#<Quantified::Length: 5 feet>", @length.inspect
   end
 
-  def test_to_s
+  test "#to_s" do
     assert_equal "5 feet", @length.to_s
   end
 
-  def test_initialize_from_numeric
+  test "initialize from numeric" do
     assert_equal "5 feet", 5.feet.to_s
   end
 
-  def test_equalities
+  test "equalities" do
     assert_equal 1.feet, (1.0).feet
     # == based on value
     assert_equal 6.feet, Length.new(2, :yards)
@@ -31,50 +30,50 @@ class LengthTest < Test::Unit::TestCase
     assert !2.feet.equal?(2.feet)
   end
 
-  def test_convert_mm_to_inches
+  test "convert mm to inches" do
     assert_equal 12, Length.new(304.8, :millimetres).to_inches
   end
 
-  def test_convert_yards_to_feet
+  test "convert yards to feet" do
     assert 6.feet.eql?(Length.new(2, :yards).to_feet)
   end
 
-  def test_convert_feet_to_yards
+  test "convert feet to yards" do
     assert Length.new(2, :yards).eql?(6.feet.to_yards)
   end
 
-  def test_convert_yards_to_millimetres
+  test "convert yards to millimetres" do
     assert_in_epsilon Length.new(914.4, :millimetres).to_f, Length.new(1, :yards).to_millimetres.to_f
   end
 
-  def test_convert_millimetres_to_yards
+  test "convert millimetres to yards" do
     assert_in_epsilon Length.new(1, :yards).to_f, Length.new(914.4, :millimetres).to_yards.to_f
   end
 
-  def test_convert_metres_to_inches
+  test "convert metres to inches" do
     assert_in_epsilon 1.inches.to_f, (0.0254).metres.to_inches.to_f
   end
 
-  def test_comparison_with_numeric
+  test "comparison with numeric" do
     assert 2.feet > 1
     assert 2.feet == 2
     assert 2.feet <= 2
     assert 2.feet < 3
   end
 
-  def test_method_missing_to_i
+  test "#method_missing to_i" do
     assert_equal 2, (2.4).feet.to_i
   end
 
-  def test_method_missing_to_f
+  test "#method_missing to_f" do
     assert_equal 2.4, (2.4).feet.to_f
   end
 
-  def test_method_missing_minus
+  test "#method_missing minus" do
     assert_equal 2.feet, 5.feet - 3.feet
   end
 
-  def test_numeric_methods_not_added_for_some_units
+  test "#numeric_methods not added for some units" do
     assert_raises(NoMethodError) do
       2.yards
     end
@@ -83,7 +82,7 @@ class LengthTest < Test::Unit::TestCase
     end
   end
 
-  def test_systems
+  test "unit systems" do
     assert_equal [:metric, :imperial], Length.systems
     assert_equal [:metres, :centimetres, :millimetres, :kilometres], Length.units(:metric)
     assert_equal [:inches, :feet, :yards, :miles], Length.units(:imperial)
