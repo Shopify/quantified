@@ -15,7 +15,9 @@ Gem::Specification.new do |s|
   s.description = s.summary
 
   s.add_development_dependency('rake')
-  s.add_development_dependency('test-unit')
+  s.add_development_dependency('minitest')
+  s.add_development_dependency('activesupport')
+  s.add_development_dependency('pry')
 
   s.files        = `git ls-files`.split($/)
   s.executables  = s.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

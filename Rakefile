@@ -1,11 +1,21 @@
-require 'bundler/gem_tasks'
-require 'rake/testtask'
+require "bundler/gem_tasks"
+require "rake/testtask"
 
-task :default => :test
+$LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+require "quantified/version"
 
-desc 'Test the plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib' << 'test'
-  t.pattern = 'test/**/*_test.rb'
+task default: :test
+
+desc 'Run the test suite'
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.libs << "lib/**/*"
+  t.test_files = FileList['test/*_test.rb']
   t.verbose = true
+end
+
+task tag: :build do
+  system "git commit -m'Released version #{ Quantified::VERSION }' --allow-empty"
+  system "git tag -a v#{ Quantified::VERSION } -m 'Tagging #{ Quantified::VERSION }'"
+  system "git push --tags"
 end
