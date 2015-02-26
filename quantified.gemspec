@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = Quantified::VERSION
   s.license     = 'MIT'
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["James MacAulay", "Willem van Bergen"]
+  s.authors     = ["James MacAulay", "Willem van Bergen", "Kevin McPhillips"]
   s.email       = ["james@shopify.com"]
   s.homepage    = "https://github.com/Shopify/quantified"
   s.summary     = "Pretty quantifiable measurements which feel like ActiveSupport::Duration."
