@@ -1,5 +1,6 @@
 require "minitest/autorun"
 require "active_support"
+require "pry"
 
 ActiveSupport.test_order = :random
 
