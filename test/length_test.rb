@@ -85,8 +85,8 @@ class LengthTest < Test::Unit::TestCase
 
   def test_systems
     assert_equal [:metric, :imperial], Length.systems
-    assert_equal [:metres, :centimetres, :millimetres, :kilometres], Length.units(:metric)
-    assert_equal [:inches, :feet, :yards, :miles], Length.units(:imperial)
+    assert_equal [:metres, :meters, :m, :centimetres, :centimeters, :cm, :millimetres, :millimeters, :mm, :kilometres, :kilometers, :km], Length.units(:metric)
+    assert_equal [:inches, :in, :feet, :ft, :yards, :yd, :miles], Length.units(:imperial)
 
     assert_equal :metric, 2.centimetres.system
     assert_equal :imperial, 2.feet.system
