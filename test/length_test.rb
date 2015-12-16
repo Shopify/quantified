@@ -91,4 +91,9 @@ class LengthTest < Test::Unit::TestCase
     assert_equal :metric, 2.centimetres.system
     assert_equal :imperial, 2.feet.system
   end
+
+  def test_coder
+    assert_equal :centimetres, Length.centimetres.unit
+    assert_equal Length, Length.centimetres.attribute
+  end
 end

@@ -102,6 +102,10 @@ module Quantified
       end
     end
 
+    def self.coder(unit)
+      Coder.new(self, unit)
+    end
+
     protected
 
     class << self
@@ -178,6 +182,7 @@ module Quantified
 
     def self.add_methods_for(sym, options = {})
       add_conversion_method_for(sym, options)
+      add_coder_method_for(sym, options)
       add_numeric_method = if options.has_key?(:add_numeric_methods)
         options[:add_numeric_methods]
       else
@@ -194,6 +199,14 @@ module Quantified
           self.class.new(self.class.convert(amount, unit, unit_name), unit_name)
         end
         alias_method("in_#{unit_name}", "to_#{unit_name}")
+      end
+    end
+
+    def self.add_coder_method_for(sym, options = {})
+      (class << self; self; end).instance_eval do
+        define_method(sym) do
+          Coder.new(self, sym)
+        end
       end
     end
 
