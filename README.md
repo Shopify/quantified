@@ -46,3 +46,11 @@ You can easily define new attributes. Here's length.rb:
         end
       end
     end
+
+You can add a custom coder to an ActiveRecord model to deserialize attributes:
+
+    class Package < ActiveRecord::Base
+      serialize :weight, Quantified::Mass.ounces
+      serialize :length, Quantified::Length.inches
+      serialize :width, Quantified::Length.inches
+    end

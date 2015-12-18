@@ -86,6 +86,11 @@ class MassTest < Test::Unit::TestCase
     assert_equal [:ounces, :oz, :pounds, :lb, :stones, :st, :short_tons], Mass.units(:imperial)
   end
 
+  def test_coder
+    assert_equal :grams, Mass.grams.unit
+    assert_equal Mass, Mass.grams.attribute
+  end
+
   def test_right_side_comparison_with_fixnum
     assert Mass.new(14, :grams) < 20
   end
