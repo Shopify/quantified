@@ -12,8 +12,9 @@ module Quantified
     end
 
     def dump(quantity)
-      if quantity.is_a?(attribute)
-        quantity.send("to_#{unit}")
+      conversion = "to_#{unit}"
+      if quantity.respond_to?(conversion)
+        quantity.send(conversion)
       else
         quantity
       end

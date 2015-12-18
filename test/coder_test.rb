@@ -23,4 +23,8 @@ class CoderTest < Test::Unit::TestCase
   def test_dump_conversion
     assert_equal @coder.dump(Length.new(500, :centimeters)), 5
   end
+
+  def test_dump_numeric
+    assert_equal @coder.dump(5), 5
+  end
 end
