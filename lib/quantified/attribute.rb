@@ -18,13 +18,13 @@ module Quantified
     end
 
     def ==(other)
-      (BigDecimal.new(amount.to_s) == BigDecimal.new(other.amount.to_s) && unit == other.unit) || BigDecimal.new(self.class.convert(amount, unit, other.unit).to_s) == BigDecimal.new(other.amount.to_s)
+      (BigDecimal(amount.to_s) == BigDecimal(other.amount.to_s) && unit == other.unit) || BigDecimal(self.class.convert(amount, unit, other.unit).to_s) == BigDecimal(other.amount.to_s)
     rescue NoMethodError
       amount == other
     end
 
     def eql?(other)
-      self.class == other.class && BigDecimal.new(amount.to_s) == BigDecimal.new(other.amount.to_s) && unit == other.unit
+      self.class == other.class && BigDecimal(amount.to_s) == BigDecimal(other.amount.to_s) && unit == other.unit
     end
 
     def <=>(other)
