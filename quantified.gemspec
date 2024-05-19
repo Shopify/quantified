@@ -14,6 +14,8 @@ Gem::Specification.new do |s|
   s.summary     = "Pretty quantifiable measurements which feel like ActiveSupport::Duration."
   s.description = s.summary
 
+  s.required_ruby_version = '>= 2.7.0'
+
   s.add_development_dependency('rake')
   s.add_development_dependency('test-unit')
 
