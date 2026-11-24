@@ -1,5 +1,8 @@
 # Quantified [![Build Status](https://travis-ci.org/Shopify/quantified.svg?branch=master)](https://travis-ci.org/Shopify/quantified)
 
+> [!WARNING]
+> This gem is no longer maintained. Use [measured](https://github.com/Shopify/measured) instead.
+
 Pretty quantifiable measurements which feel like ActiveSupport::Duration.
 
 Access whichever included attributes you want like so:
